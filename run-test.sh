@@ -10,8 +10,8 @@ export VAGRANT_CHECKPOINT_DISABLE=true
 export VAGRANT_BOX_UPDATE_CHECK_DISABLE=true
 export VMCK_URL="http://10.42.1.1:9990/"
 
-TIMEOUT_MIN=23
-RETRIES=1
+TIMEOUT_MIN=10
+RETRIES=3
 
 function print_section() {
   set +x
@@ -25,7 +25,7 @@ function print_section() {
 function vagrant_up() {
   set +e
   vagrant up --no-provision || echo "vagrant up failed, VM might still work"
-  echo "sudo shutdown +$TIMEOUT_MIN" | vagrant ssh -- -v
+  echo "sudo shutdown +$TIMEOUT_MIN" | vagrant ssh
   sshret=$?
   if [ 0 -eq $sshret ]; then
     return 0
@@ -51,14 +51,6 @@ retry_vagrant_up
 print_section "Run Script"
 set +e
 vagrant provision
-ret=$?
-
-
-print_section "Doing tests"
-vagrant ssh <<'EOF'
-set -e
-ls -al /opt/vmck
-EOF
 ret=$?
 
 print_section "Destroying Vagrant"

@@ -2,4 +2,4 @@
 
 docker rmi test
 docker build --tag=test .
-docker run --name=test -it --rm test /bin/bash
+docker run --name=test --rm test

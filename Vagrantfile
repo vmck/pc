@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
   config.vm.define machine_name
   config.nfs.functional = false
 
-  config.vm.synced_folder "..", "/opt/vmck", type: "rsync",
+  config.vm.synced_folder ".", "/opt/vmck", type: "rsync",
       rsync__exclude: [".git/"]
 
   config.vm.provision(
