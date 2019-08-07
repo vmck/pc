@@ -1,6 +1,6 @@
 FROM vmck/vagrant-vmck
 
-ADD . /src
-WORKDIR /src
+WORKDIR /test-pc
+ADD . .
 
 CMD ./run-test.sh

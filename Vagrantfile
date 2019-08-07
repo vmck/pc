@@ -1,8 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require 'etc'
-
 Vagrant.configure("2") do |config|
   config.vm.box = "base"
 
@@ -10,23 +8,16 @@ Vagrant.configure("2") do |config|
     config.env.enable
   end
 
-  machine_name = ENV['MACHINE_NAME'] || ("vmck-vagrant-" + `hostname`.strip)
-  custom_sh = ENV['PROVISION_SH']
-
-  config.vm.define machine_name
   config.nfs.functional = false
 
   config.vm.synced_folder ".", "/opt/vmck", type: "rsync",
       rsync__exclude: [".git/"]
 
-  config.vm.provision(
-      'provider',
-      preserve_order: true,
-      type: 'shell',
-      path: "provision.sh",
-      inline: nil,
-      privileged: false,
-    )
+  if ENV['SHUTDOWN']
+    config.vm.provision 'shell', inline: "sudo shutdown #{ENV['SHUTDOWN']}"
+  end
+
+  config.vm.provision 'shell', path: "provision.sh"
 
   config.vm.provider :vmck do |vmck|
     vmck.vmck_url = ENV['VMCK_URL']

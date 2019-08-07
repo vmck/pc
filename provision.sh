@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 set -ex
 
-sudo apt install -yq git
+sudo apt-get install -yq git
 sudo git clone https://github.com/Jokeswar/School-projects.git /opt/vmck/test
 cd /opt/vmck/test/TetriBit
 sudo make run
