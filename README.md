@@ -1,5 +1,7 @@
 # pc
 
+[![Build Status](https://jenkins.liquiddemo.org/api/badges/vmck/pc/status.svg)](https://jenkins.liquiddemo.org/vmck/pc)
+
 ## Usage:
 
 ```shell

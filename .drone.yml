@@ -1,0 +1,10 @@
+kind: pipeline
+name: test
+
+steps:
+- name: test
+  image: vmck/vagrant-vmck
+  commands:
+  - export VMCK_URL=http://10.42.1.1:9995/
+  - echo $VMCK_URL
+  - ci/deploy-vmck
